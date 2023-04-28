@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap-grid.min.css';
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*
+This .scss loop will create "margin helpers" and "padding helpers" for use in your web projects.
+It will generate several classes such as:
+.m-r-10 which gives margin-right 10 pixels.
+.m-10 which gives margin 10 pixels.
+*/
+$spaceamounts: (
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50,
+    75,
+    100
+); // Adjust this to include the pixel amounts you need.
+$sides: (
+    top,
+    bottom,
+    left,
+    right
+); // Leave this variable alone
+
+@each $space in $spaceamounts {
+    @each $side in $sides {
+        .m-#{str-slice($side, 0, 1)}-#{$space} {
+            margin-#{$side}: #{$space}px !important;
+        }
+
+        .p-#{str-slice($side, 0, 1)}-#{$space} {
+            padding-#{$side}: #{$space}px !important;
+        }
+
+        .m-#{$space} {
+            margin: #{$space}px !important;
+        }
+
+        .p-#{$space} {
+            padding: #{$space}px !important;
+        }
+    }
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.width-full {
+    width: 100% !important;
+}

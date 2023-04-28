@@ -1,0 +1,53 @@
+<div class="address-list-container m-30">
+  <button mat-flat-button color="primary" class="m-b-10" (click)="onAddAddress()">
+    <mat-icon fontIcon="add_location_alt"></mat-icon>
+    Add Address
+  </button>
+  <mat-spinner [style.display]="loading ? 'block' : 'none'"></mat-spinner>
+  <div class="mat-elevation-z8">
+    <mat-table [style.display]="loading === false ? 'block' : 'none'" #table [dataSource]="dataSource" matSort>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="streetName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Streeet Name </mat-header-cell>
+        <mat-cell *matCellDef="let address"> {{address.streetName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Number </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="zipCode">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ZipCode </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.zipCode}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-cell *matCellDef="let element"> <button mat-button color="primary"
+            (click)="onDeleteAddress(element.id)"><mat-icon>delete</mat-icon>
+          </button> <button mat-button color="primary"
+            (click)="onEditAddress(element)"><mat-icon>edit</mat-icon></button> </mat-cell>
+      </ng-container>
+    </mat-table>
+    <mat-paginator #paginator [style.display]="loading === false ? 'block' : 'none'"
+      [pageSize]="pageSize"></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.smart-home-container {
+    height: 100%;
+    width: 100%
+}
+
+.smart-home-body {
+    height: calc(100% - 64px);
+}
+
+.side-nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+}
