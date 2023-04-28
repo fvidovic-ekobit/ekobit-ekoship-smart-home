@@ -12,7 +12,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RouterModule, Routes } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,18 +28,6 @@ import { AddressListComponent } from './address/address-list/address-list.compon
 import { AddressDetailComponent } from './address/address-detail/address-detail.component';
 import { HomeListComponent } from './home/home-list/home-list.component';
 import { HomeDetailComponent } from './home/home-detail/home-detail.component';
-
-
-const appRoutes: Routes = [
-  {
-    path: 'home-list',
-    component: HomeListComponent
-  },
-  {
-    path: 'address-list',
-    component: AddressListComponent
-  },
-];
 
 @NgModule({
   declarations: [
@@ -69,10 +56,7 @@ const appRoutes: Routes = [
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatGridListModule,
-    RouterModule.forRoot(
-      appRoutes,
-    )
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
