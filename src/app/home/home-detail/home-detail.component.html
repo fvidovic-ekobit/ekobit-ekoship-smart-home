@@ -7,12 +7,21 @@
     </button>
 </mat-toolbar>
 <div mat-dialog-content class="container">
-    <form *ngIf="model" #form="ngForm">
+    <form #form="ngForm">
         <mat-form-field appearance="fill" class="width-full">
             <mat-label>Name</mat-label>
-            <input matInput placeholder="Your home name" [(ngModel)]="model.name" name="name">
+            <input matInput placeholder="Your home name" [(ngModel)]="name" name="name">
         </mat-form-field>
+
         <!-- dropdown select address -->
+        <mat-form-field *ngIf="isEdit" appearance="fill" class="width-full">
+            <mat-label>Address</mat-label>
+            <mat-select [(ngModel)]="selectedAddress" name="address">
+              <mat-option *ngFor="let address of addresses$ | async" [value]="address.id">
+                {{address.streetName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
     </form>
 </div>
 <div mat-dialog-actions>

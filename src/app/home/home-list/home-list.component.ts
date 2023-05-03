@@ -3,7 +3,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Home } from '../../models/home';
 import { HomeService } from '../../services/home.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,8 +11,7 @@ import { HomeDetailComponent } from '../home-detail/home-detail.component';
 
 @Component({
   selector: 'home-list',
-  templateUrl: './home-list.component.html',
-  styleUrls: ['./home-list.component.scss']
+  templateUrl: './home-list.component.html'
 })
 export class HomeListComponent implements OnInit {
   dataSource = new MatTableDataSource<Home>();
@@ -36,7 +35,6 @@ export class HomeListComponent implements OnInit {
   getData() {
     this.loading = true;
     this.homeSubscription = this.homeService.getHomes().subscribe((homes) => {
-      console.log('gethomes', homes);
       this.dataSource = new MatTableDataSource<Home>(homes);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -55,9 +53,8 @@ export class HomeListComponent implements OnInit {
   }
 
   onEditHome(home: Home) {
-    console.log('edithome');
     const dialogRef = this.dialog.open(HomeDetailComponent, {
-      data: home,
+      data: home.id,
       height: '100%',
       width: '30%',
       position: {
@@ -72,7 +69,6 @@ export class HomeListComponent implements OnInit {
   }
 
   onAddHome(): void {
-    console.log('onAddhome');
     const dialogRef = this.dialog.open(HomeDetailComponent, {
       data: null,
       height: '100%',

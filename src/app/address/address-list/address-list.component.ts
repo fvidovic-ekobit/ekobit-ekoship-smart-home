@@ -36,7 +36,6 @@ export class AddressListComponent implements OnInit {
   getData() {
     this.loading = true;
     this.addressesSubscription = this.adressService.getAddresses().subscribe((addresses) => {
-      console.log('getAddresses', addresses);
       this.dataSource = new MatTableDataSource<Address>(addresses);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -55,7 +54,6 @@ export class AddressListComponent implements OnInit {
   }
 
   onEditAddress(address: Address) {
-    console.log('editAddress');
     const dialogRef = this.dialog.open(AddressDetailComponent, {
       data: address,
       height: '100%',
@@ -72,7 +70,6 @@ export class AddressListComponent implements OnInit {
   }
 
   onAddAddress(): void {
-    console.log('onAddAddress');
     const dialogRef = this.dialog.open(AddressDetailComponent, {
       data: null,
       height: '100%',

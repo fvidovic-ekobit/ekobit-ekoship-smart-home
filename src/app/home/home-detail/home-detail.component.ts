@@ -1,7 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Home } from '../../models/home';
+import { Observable } from 'rxjs';
+import { Address } from '../../../app/models/address';
+import { AddressService } from '../../services/adress.service';
+import { AddHome, EditHome, Home, HomeDetails } from '../../models/home';
 import { HomeService } from '../../services/home.service';
 
 @Component({
@@ -10,19 +13,31 @@ import { HomeService } from '../../services/home.service';
 })
 
 export class HomeDetailComponent {
-  model: Home = new Home();
+  id!: number;
+  name!: string;
   isEdit: boolean = false;
+  addresses$: Observable<Array<Address>> | undefined;
+  selectedAddress!: number;
 
   constructor(
-    private readonly adressService: HomeService,
+    private readonly homeService: HomeService,
+    private readonly adressService: AddressService,
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<HomeDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Home) { }
+    @Inject(MAT_DIALOG_DATA) public data: number) { }
 
   ngOnInit() {
     this.isEdit = !!this.data;
-    this.model = this.isEdit ? this.data : new Home();
-    console.log('HomeDetailComponent', this.model);
+
+    if(this.isEdit) {
+      this.id = this.data;
+      this.homeService.getHome(this.id).subscribe((home: HomeDetails) => {
+        this.name = home.name;
+        this.selectedAddress = home.addressId;
+      })
+    }
+  
+    this.addresses$ = this.adressService.getAddresses();
   }
 
   onCancel(): void {
@@ -30,14 +45,22 @@ export class HomeDetailComponent {
   }
 
   onSaveHome() {
-    console.log('save Home', this.model, this.isEdit);
     if (this.isEdit) {
-      this.adressService.editHome(this.model).subscribe(() => {
+      const editModel: EditHome = {
+        name: this.name,
+        addressId: this.selectedAddress
+      }
+
+      this.homeService.editHome(this.id, editModel).subscribe(() => {
         this.dialogRef.close();
         this.snackBar.open('Home was successfully edited');
       });
     } else {
-      this.adressService.addHome(this.model).subscribe(() => {
+      const addModel: AddHome = {
+        name: this.name,
+      }
+
+      this.homeService.addHome(addModel).subscribe(() => {
         this.dialogRef.close();
         this.snackBar.open('Home was successfully added');
       });

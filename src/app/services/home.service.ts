@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { apiURL } from "../constants";
-import { Home } from "../models/home";
+import { AddHome, EditHome, Home, HomeDetails } from "../models/home";
 
 @Injectable({
     providedIn: 'root',
@@ -23,15 +23,19 @@ export class HomeService {
         return this.http.get<Array<Home>>(this.apiPath, this.httpOptions);
     }
 
-    addHome(data: Home) {
+    addHome(data: AddHome) {
         return this.http.post(this.apiPath, data);
     }
 
-    editHome(data: Home): Observable<Home> {
-        return this.http.put<Home>(this.apiPath + '/' + data.id, data);
+    editHome(id: number, data: EditHome): Observable<Home> {
+        return this.http.put<Home>(this.apiPath + '/' + id, data);
     }
 
     deleteHome(id: number) {
         return this.http.delete(this.apiPath + '/' + id);
+    }
+
+    getHome(id: number): Observable<HomeDetails> {
+        return this.http.get<HomeDetails>(this.apiPath+ '/' + id, this.httpOptions);
     }
 }
