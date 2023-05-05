@@ -12,7 +12,6 @@ import { AddressDetailComponent } from '../address-detail/address-detail.compone
 @Component({
   selector: 'app-address-list',
   templateUrl: './address-list.component.html',
-  styleUrls: ['./address-list.component.scss']
 })
 export class AddressListComponent implements OnInit {
   dataSource = new MatTableDataSource<Address>();
