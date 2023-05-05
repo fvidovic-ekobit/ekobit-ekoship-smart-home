@@ -10,6 +10,7 @@ import { HomeService } from '../../services/home.service';
 @Component({
   selector: 'home-detail',
   templateUrl: 'home-detail.component.html',
+  styleUrls: ['./home-detail.component.scss'],
 })
 
 export class HomeDetailComponent {
@@ -51,10 +52,17 @@ export class HomeDetailComponent {
         addressId: this.selectedAddress
       }
 
-      this.homeService.editHome(this.id, editModel).subscribe(() => {
-        this.dialogRef.close();
-        this.snackBar.open('Home was successfully edited');
-      });
+      this.homeService.editHome(this.id, editModel).subscribe({
+        complete: () => {
+          this.dialogRef.close();
+          this.snackBar.open('Home was successfully edited');
+        },
+        error: (err) => { 
+          console.log('home edit error', err);
+          this.dialogRef.close();
+          this.snackBar.open('Error while editing home');
+        }
+    });
     } else {
       const addModel: AddHome = {
         name: this.name,

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { catchError, Observable, of } from "rxjs";
 import { apiURL } from "../constants";
 import { AddHome, EditHome, Home, HomeDetails } from "../models/home";
 
@@ -28,7 +28,10 @@ export class HomeService {
     }
 
     editHome(id: number, data: EditHome): Observable<Home> {
-        return this.http.put<Home>(this.apiPath + '/' + id, data);
+        return this.http.put<Home>(this.apiPath + '/' + id, data).pipe(
+            catchError((error: any, caught: Observable<any>) => {
+                return of(error);
+            }));;
     }
 
     deleteHome(id: number) {
