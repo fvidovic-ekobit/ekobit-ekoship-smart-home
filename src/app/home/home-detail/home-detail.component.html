@@ -1,29 +1,39 @@
 <mat-toolbar color="secondary">
-    <span *ngIf="isEdit">Edit Home</span>
-    <span *ngIf="!isEdit">Add Home</span>
-    <span class="toolbar-spacer"></span>
-    <button mat-icon-button [mat-dialog-close]="data">
-        <mat-icon>close</mat-icon>
-    </button>
+  <span *ngIf="isEdit">Edit Home</span>
+  <span *ngIf="!isEdit">Add Home</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-icon-button [mat-dialog-close]="data">
+    <mat-icon>close</mat-icon>
+  </button>
 </mat-toolbar>
 <div mat-dialog-content class="container">
-    <form #form="ngForm">
-        <mat-form-field appearance="fill" class="width-full">
-            <mat-label>Name</mat-label>
-            <input matInput placeholder="Your home name" [(ngModel)]="name" name="name">
-        </mat-form-field>
+  <form #form="ngForm">
+    <mat-form-field appearance="fill" class="width-full">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Your home name" [(ngModel)]="name" name="name">
+    </mat-form-field>
 
-        <!-- dropdown select address -->
-        <mat-form-field *ngIf="isEdit" appearance="fill" class="width-full">
-            <mat-label>Address</mat-label>
-            <mat-select [(ngModel)]="selectedAddress" name="address">
-              <mat-option *ngFor="let address of addresses$ | async" [value]="address.id">
-                {{address.streetName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-    </form>
+    <!-- dropdown select address -->
+    <mat-form-field *ngIf="isEdit" appearance="fill" class="width-full">
+      <mat-label>Address</mat-label>
+      <mat-select [(ngModel)]="selectedAddress" name="address">
+        <mat-option *ngFor="let address of addresses$ | async" [value]="address.id">
+          {{address.streetName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- dropdown select device -->
+    <mat-form-field *ngIf="isEdit" appearance="fill" class="width-full">
+      <mat-label>Device</mat-label>
+      <mat-select [(ngModel)]="selectedDevice" name="address">
+        <mat-option *ngFor="let device of devices$ | async" [value]="device.id">
+          {{device.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions>
-    <button mat-flat-button color="primary" (click)="onSaveHome()" cdkFocusInitial>Save</button>
+  <button mat-flat-button color="primary" (click)="onSaveHome()" cdkFocusInitial>Save</button>
 </div>

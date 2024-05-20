@@ -6,6 +6,8 @@ import { Address } from '../../../app/models/address';
 import { AddressService } from '../../services/adress.service';
 import { AddHome, EditHome, Home, HomeDetails } from '../../models/home';
 import { HomeService } from '../../services/home.service';
+import { DeviceList } from 'src/app/models/device';
+import { DeviceService } from 'src/app/services/device.service';
 
 @Component({
   selector: 'home-detail',
@@ -18,10 +20,13 @@ export class HomeDetailComponent {
   isEdit: boolean = false;
   addresses$: Observable<Array<Address>> | undefined;
   selectedAddress!: number;
+  devices$: Observable<Array<DeviceList>> | undefined;
+  selectedDevice!: number;
 
   constructor(
     private readonly homeService: HomeService,
     private readonly adressService: AddressService,
+    private readonly deviceService: DeviceService,
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<HomeDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number) { }
@@ -38,6 +43,7 @@ export class HomeDetailComponent {
     }
   
     this.addresses$ = this.adressService.getAddresses();
+    this.devices$ = this.deviceService.getDevices();
   }
 
   onCancel(): void {

@@ -5,33 +5,33 @@ import { apiURL } from "../constants";
 import { Address } from "../models/address";
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class AddressService {
-    apiPath = apiURL + 'address';
+  apiPath = apiURL + 'address';
 
-    constructor(private http: HttpClient) { }
-    httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-        }),
-    };
+  constructor(private http: HttpClient) { }
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    }),
+  };
 
-    getAddresses(): Observable<Array<Address>> {
-        return this.http.get<Array<Address>>(this.apiPath, this.httpOptions);
-    }
+  getAddresses(): Observable<Array<Address>> {
+    return this.http.get<Array<Address>>(this.apiPath, this.httpOptions);
+  }
 
-    addAddress(data: Address) {
-        return this.http.post(this.apiPath, data);
-    }
+  addAddress(data: Address) {
+    return this.http.post(this.apiPath, data);
+  }
 
-    editAddress(data: Address): Observable<Address> {
-        return this.http.put<Address>(this.apiPath + '/' + data.id, data);
-    }
+  editAddress(data: Address): Observable<Address> {
+    return this.http.put<Address>(this.apiPath + '/' + data.id, data);
+  }
 
-    deleteAddress(id: number) {
-        return this.http.delete(this.apiPath + '/' + id);
-    }
+  deleteAddress(id: number) {
+    return this.http.delete(this.apiPath + '/' + id);
+  }
 }

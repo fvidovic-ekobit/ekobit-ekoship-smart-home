@@ -29,6 +29,8 @@ import { AddressListComponent } from './address/address-list/address-list.compon
 import { AddressDetailComponent } from './address/address-detail/address-detail.component';
 import { HomeListComponent } from './home/home-list/home-list.component';
 import { HomeDetailComponent } from './home/home-detail/home-detail.component';
+import { DeviceDetailsComponent } from './device/device-detail/device-details.component';
+import { DeviceListComponent } from './device/device-list/device-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { HomeDetailComponent } from './home/home-detail/home-detail.component';
     AddressListComponent,
     AddressDetailComponent,
     HomeListComponent,
-    HomeDetailComponent
+    HomeDetailComponent,
+    DeviceListComponent,
+    DeviceDetailsComponent
   ],
   imports: [
     HttpClientModule,

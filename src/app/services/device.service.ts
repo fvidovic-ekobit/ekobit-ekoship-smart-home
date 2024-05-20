@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { apiURL } from "../constants";
-import { AddHome, EditHome, Home, HomeDetails } from "../models/home";
+import { DeviceCreate, DeviceDetails, DeviceList, DeviceUpdate } from "../models/device";
 
 @Injectable({
   providedIn: 'root',
 })
-export class HomeService {
-  apiPath = apiURL + 'home';
+export class DeviceService {
+  apiPath = apiURL + 'device';
 
   constructor(private http: HttpClient) { }
   httpOptions = {
@@ -19,23 +19,23 @@ export class HomeService {
     }),
   };
 
-  getHomes(): Observable<Array<Home>> {
-    return this.http.get<Array<Home>>(this.apiPath, this.httpOptions);
+  getDevices(): Observable<Array<DeviceList>> {
+    return this.http.get<Array<DeviceList>>(this.apiPath, this.httpOptions);
   }
 
-  addHome(data: AddHome) {
+  addDevice(data: DeviceCreate) {
     return this.http.post(this.apiPath, data);
   }
 
-  editHome(id: number, data: EditHome): Observable<Home> {
-    return this.http.put<Home>(this.apiPath + '/' + id, data);
+  editDevice(id: number, data: DeviceUpdate): Observable<DeviceDetails> {
+    return this.http.put<DeviceDetails>(this.apiPath + '/' + id, data);
   }
 
-  deleteHome(id: number) {
+  deleteDevice(id: number) {
     return this.http.delete(this.apiPath + '/' + id);
   }
 
-  getHome(id: number): Observable<HomeDetails> {
-    return this.http.get<HomeDetails>(this.apiPath + '/' + id, this.httpOptions);
+  getDevice(id: number): Observable<DeviceDetails> {
+    return this.http.get<DeviceDetails>(this.apiPath + '/' + id, this.httpOptions);
   }
 }

@@ -1,0 +1,24 @@
+<mat-toolbar color="secondary">
+  <span *ngIf="isEdit">Edit Device</span>
+  <span *ngIf="!isEdit">Add Device</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-icon-button [mat-dialog-close]="data">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+<div mat-dialog-content class="container">
+  <form #form="ngForm">
+    <mat-form-field appearance="fill" class="width-full">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" [(ngModel)]="name" name="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="width-full">
+      <mat-label>Serial number</mat-label>
+      <input matInput placeholder="Serial number" [(ngModel)]="serialNr" name="serialNr">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="onSaveDevice()" cdkFocusInitial>Save</button>
+</div>
