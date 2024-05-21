@@ -1,8 +1,8 @@
 import { Component, Inject } from "@angular/core";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Address } from "src/app/models/address";
 import { AddressService } from "src/app/services/adress.service";
+import { UtilsService } from "src/app/services/utils.service";
 
 @Component({
   selector: 'address-detail',
@@ -15,7 +15,7 @@ export class AddressDetailComponent {
 
   constructor(
     private readonly adressService: AddressService,
-    public snackBar: MatSnackBar,
+    public utils: UtilsService,
     public dialogRef: MatDialogRef<AddressDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Address) { }
 
@@ -34,12 +34,12 @@ export class AddressDetailComponent {
     if (this.isEdit) {
       this.adressService.editAddress(this.model).subscribe(() => {
         this.dialogRef.close();
-        this.snackBar.open('Address was successfully edited');
+        this.utils.openSnackBar('Address was successfully edited');
       });
     } else {
       this.adressService.addAddress(this.model).subscribe(() => {
         this.dialogRef.close();
-        this.snackBar.open('Address was successfully added');
+        this.utils.openSnackBar('Address was successfully added');
       });
     }
   }

@@ -1,13 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Address } from '../../../app/models/address';
 import { AddressService } from '../../services/adress.service';
-import { AddHome, EditHome, Home, HomeDetails } from '../../models/home';
+import { AddHome, EditHome, HomeDetails } from '../../models/home';
 import { HomeService } from '../../services/home.service';
 import { DeviceList } from 'src/app/models/device';
 import { DeviceService } from 'src/app/services/device.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'home-detail',
@@ -27,7 +27,7 @@ export class HomeDetailComponent {
     private readonly homeService: HomeService,
     private readonly adressService: AddressService,
     private readonly deviceService: DeviceService,
-    public snackBar: MatSnackBar,
+    public utils: UtilsService,
     public dialogRef: MatDialogRef<HomeDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number) { }
 
@@ -59,7 +59,7 @@ export class HomeDetailComponent {
 
       this.homeService.editHome(this.id, editModel).subscribe(() => {
         this.dialogRef.close();
-        this.snackBar.open('Home was successfully edited');
+        this.utils.openSnackBar('Home was successfully edited');
       });
     } else {
       const addModel: AddHome = {
@@ -68,7 +68,7 @@ export class HomeDetailComponent {
 
       this.homeService.addHome(addModel).subscribe(() => {
         this.dialogRef.close();
-        this.snackBar.open('Home was successfully added');
+        this.utils.openSnackBar('Home was successfully added');
       });
     }
   }

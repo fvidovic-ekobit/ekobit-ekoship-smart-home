@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Address } from '../../models/address';
 import { AddressService } from '../../services/adress.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddressDetailComponent } from '../address-detail/address-detail.component';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-address-list',
@@ -24,7 +24,7 @@ export class AddressListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   constructor(
-    public snackBar: MatSnackBar,
+    public utils: UtilsService,
     public dialog: MatDialog,
     private readonly adressService: AddressService) { }
 
@@ -47,7 +47,7 @@ export class AddressListComponent implements OnInit {
     this.adressService.deleteAddress(id)
       .subscribe(() => {
         this.loading = false;
-        let snackBarRef = this.snackBar.open(`Address #${id} has been deleted`);
+        let snackBarRef = this.utils.openSnackBar(`Address #${id} has been deleted`);
         this.getData();
       });
   }

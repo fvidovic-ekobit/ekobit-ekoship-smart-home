@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
@@ -8,6 +7,7 @@ import { Home } from '../../models/home';
 import { HomeService } from '../../services/home.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HomeDetailComponent } from '../home-detail/home-detail.component';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'home-list',
@@ -24,7 +24,7 @@ export class HomeListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   constructor(
-    public snackBar: MatSnackBar,
+    public utils: UtilsService,
     public dialog: MatDialog,
     private readonly homeService: HomeService) { }
 
@@ -47,7 +47,7 @@ export class HomeListComponent implements OnInit {
     this.homeService.deleteHome(id)
       .subscribe(() => {
         this.loading = false;
-        let snackBarRef = this.snackBar.open(`Home #${id} has been deleted`);
+        this.utils.openSnackBar(`Home #${id} has been deleted`);
         this.getData();
       });
   }

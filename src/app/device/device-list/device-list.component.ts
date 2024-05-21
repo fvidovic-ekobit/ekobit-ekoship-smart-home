@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
@@ -8,6 +7,7 @@ import { DeviceService } from '../../services/device.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceDetailsComponent } from '../device-detail/device-details.component';
 import { DeviceDetails, DeviceList } from 'src/app/models/device';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'device-list',
@@ -24,7 +24,7 @@ export class DeviceListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   constructor(
-    public snackBar: MatSnackBar,
+    public utils: UtilsService,
     public dialog: MatDialog,
     private readonly deviceService: DeviceService) { }
 
@@ -47,7 +47,7 @@ export class DeviceListComponent implements OnInit {
     this.deviceService.deleteDevice(id)
       .subscribe(() => {
         this.loading = false;
-        let snackBarRef = this.snackBar.open(`Device #${id} has been deleted`);
+        this.utils.openSnackBar(`Device #${id} has been deleted`);
         this.getData();
       });
   }

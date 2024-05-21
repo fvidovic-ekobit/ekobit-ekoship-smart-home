@@ -1,10 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { Address } from '../../../app/models/address';
 import { DeviceService } from 'src/app/services/device.service';
 import { DeviceCreate, DeviceDetails, DeviceUpdate } from 'src/app/models/device';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'device-details',
@@ -19,7 +17,7 @@ export class DeviceDetailsComponent {
 
   constructor(
     private readonly service: DeviceService,
-    public snackBar: MatSnackBar,
+    public utils: UtilsService,
     public dialogRef: MatDialogRef<DeviceDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number) { }
 
@@ -48,7 +46,7 @@ export class DeviceDetailsComponent {
 
       this.service.editDevice(this.id, editModel).subscribe(() => {
         this.dialogRef.close();
-        this.snackBar.open('Home was successfully edited');
+        this.utils.openSnackBar('Device was successfully edited');
       });
     } else {
       const addModel: DeviceCreate = {
@@ -58,7 +56,7 @@ export class DeviceDetailsComponent {
 
       this.service.addDevice(addModel).subscribe(() => {
         this.dialogRef.close();
-        this.snackBar.open('Home was successfully added');
+        this.utils.openSnackBar('Device was successfully added');
       });
     }
   }
